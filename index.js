@@ -11,6 +11,7 @@
 
 window.onload = init;
 
+
 /**
  *     chargement de l'ensemble des données nécessaires :
  *
