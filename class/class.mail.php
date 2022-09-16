@@ -13,10 +13,10 @@ class Mail {
         //Server settings
         // $this->mail->SMTPDebug = SMTP::DEBUG_SERVER;
         $this->mail->isSMTP();
-        $this->mail->Host       = 'smtp-serin.alwaysdata.net';
-        $this->mail->SMTPAuth   = true;
-        $this->mail->Username   = 'serin@alwaysdata.net';
-        $this->mail->Password   = 'SlamSr2023';
+        $this->mail->Host = 'smtp-serin.alwaysdata.net';
+        $this->mail->SMTPAuth = true;
+        $this->mail->Username = 'serin@alwaysdata.net';
+        $this->mail->Password = 'SlamSr2023';
         $this->mail->SMTPSecure = 'ssl';
         $this->mail->Port = 465;
         $this->mail->setFrom('serin@alwaysdata.net', 'Webmaster');

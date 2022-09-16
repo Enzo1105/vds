@@ -93,8 +93,19 @@ require RACINE . '/include/head.php';
                data-bs-content="Calendrier, horaires et autres informations à connaitre">
             </i>
         </a>
-
-
+        <div>
+            <p>Prochaine édition des 4 saisons : le ../../….
+            </p>
+            <br>
+            <p> Description </p>
+            <a class="btn btn-sm btn-danger href="">
+            S'inscrire
+            </a>
+            <a class="btn btn-sm btn-danger href="">
+            Voir les inscrits
+            </a>
+            <p>Les inscriptions seront ouvertes à partir du ../../….</p>
+        </div>
     </div>
 </div>
 
