@@ -29,11 +29,13 @@ function init() {
                 data: {nom: nom.value, prenom: prenom.value},
                 dataType: "json",
                 error: (reponse) => {
-                    msg.innerHTML = Std.genererMessage(reponse.responseText, 'rouge')
+                   // msg.innerHTML = Std.genererMessage(reponse.responseText, 'rouge')
+
+                    btnEnvoyer.disabled = false;
                 },
                 success: () => {
                     msg.innerHTML = Std.genererMessage("Votre login vient de vous êtes envoyé par mail", 'vert')
-                    btnEnvoyer.disabled = true;
+                    //btnEnvoyer.disabled = false;
                     Std.viderLesChamps();
                 }
             })

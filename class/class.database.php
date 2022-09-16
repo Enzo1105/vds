@@ -10,11 +10,19 @@ class Database
     public static function getInstance()
     {
         if (is_null(self::$_instance)) {
-			$dbHost = 'localhost';
-            $dbUser = 'root';
-            $dbPassword = '';
-            $dbBase =  'vds';
-            $dbPort = 3306;
+            if ($_SERVER['SERVER_NAME'] === 'vds') {
+                $dbHost = 'localhost';
+                $dbUser = 'root';
+                $dbPassword = '';
+                $dbBase = 'vds';
+                $dbPort = 3306;
+            } else {
+                $dbHost = 'mysql-serin.alwaysdata.net';
+                $dbUser = 'serin';
+                $dbPassword = 'SlamSr.2023';
+                $dbBase = 'serin_vds';
+                $dbPort = 3306;
+            }
             try {
                 $chaine = "mysql:host=$dbHost;dbname=$dbBase;port=$dbPort";
                 $db = new PDO($chaine, $dbUser, $dbPassword);
@@ -22,10 +30,11 @@ class Database
                 $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
                 self::$_instance = $db;
             } catch (PDOException $e) { // à personnaliser
-               echo "Accès à la base de données impossible, vérifiez les paramètres de connexion";
-               exit();
+                echo "Accès à la base de données impossible, vérifiez les paramètres de connexion";
+                exit();
+
             }
+            return self::$_instance;
         }
-        return self::$_instance;
     }
 }

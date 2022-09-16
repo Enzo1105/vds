@@ -93,6 +93,8 @@ require RACINE . '/include/head.php';
                data-bs-content="Calendrier, horaires et autres informations à connaitre">
             </i>
         </a>
+
+
     </div>
 </div>
 
