@@ -98,13 +98,10 @@ require RACINE . '/include/head.php';
             </p>
             <br>
             <p> Description </p>
-            <a class="btn btn-sm btn-danger href="">
-            S'inscrire
-            </a>
-            <a class="btn btn-sm btn-danger href="">
+            <a class="btn btn-sm btn-danger href=" https://www.klikego.com/inscrits/finale-des-quatre-saisons-2022/1603054434896-7">
             Voir les inscrits
             </a>
-            <p>Les inscriptions seront ouvertes à partir du ../../….</p>
+            <p>Les inscriptions sont closes depuis le ../../….</p>
         </div>
     </div>
 </div>
