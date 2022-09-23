@@ -34,7 +34,7 @@ class Database
                 exit();
 
             }
-            return self::$_instance;
         }
+        return self::$_instance;
     }
 }

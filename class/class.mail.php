@@ -16,7 +16,7 @@ class Mail {
         $this->mail->Host = 'smtp-serin.alwaysdata.net';
         $this->mail->SMTPAuth = true;
         $this->mail->Username = 'serin@alwaysdata.net';
-        $this->mail->Password = 'SlamSr2023';
+        $this->mail->Password = 'SlamSr.2023';
         $this->mail->SMTPSecure = 'ssl';
         $this->mail->Port = 465;
         $this->mail->setFrom('serin@alwaysdata.net', 'Webmaster');

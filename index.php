@@ -59,6 +59,7 @@ $titreFonction = "Site de l'Amicale du Val de Somme";
 require RACINE . '/include/head.php';
 ?>
 <script src="index.js"></script>
+<script src="epreuve/epreuve.js"></script>
 <div id="msg" class="m-3"></div>
 <div class="card border-dark mx-2 mb-2">
     <div class="card-header text-white" style="background-color: #343a40">
@@ -93,16 +94,17 @@ require RACINE . '/include/head.php';
                data-bs-content="Calendrier, horaires et autres informations à connaitre">
             </i>
         </a>
+        <div id="prochaine_epreuve"></div>
+        <div id="description"></div>
         <div>
-            <p>Prochaine édition des 4 saisons : le ../../….
-            </p>
-            <br>
-            <p> Description </p>
-            <a class="btn btn-sm btn-danger href=" https://www.klikego.com/inscrits/finale-des-quatre-saisons-2022/1603054434896-7">
+            <a class="btn btn-sm btn-danger" href="https://www.klikego.com/inscription/finale-des-quatre-saisons-2022/running%02course-a-pied/1603054434896-7">
+            S'inscrire
+            </a>
+            <a class="btn btn-sm btn-danger" href="https://www.klikego.com/inscrits/finale-des-quatre-saisons-2022/1603054434896-7">
             Voir les inscrits
             </a>
-            <p>Les inscriptions sont closes depuis le ../../….</p>
         </div>
+        <div id="date_fermeture"></div>
     </div>
 </div>
 

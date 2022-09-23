@@ -40,7 +40,7 @@ function init() {
                 success: function (data) {
                     let parametre = {
                         type: 'success',
-                        message: 'Ajout réalisé avec succès',
+                        message: 'Ajout réalisé avec succès ' + data ,
                         fermeture: 1,
                     }
                     Std.afficherMessage(parametre);

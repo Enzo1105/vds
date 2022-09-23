@@ -9,7 +9,7 @@ $titreFonction =  "Nouveau membre";
 require RACINE . '/include/head.php';
 ?>
 
-<script src="ajout.js"></script>
+<script src="ajout.js?v=1"></script>
 
 <div class="border p-3 mt-3">
     <div id="msg" class="m-3"></div>
