@@ -19,7 +19,7 @@ VALUES ('Finale d''automne 4 Saisons d''Amiens Métropole',
        5 Km découverte: 9H20
        10 Km Course des Joggers: 10H05
        10 Km Course des As: 11H20
-       Tarif unique : 10 euros (frais d''inscription compris.
+       Tarif unique : 10 euros (frais d''inscription compris)
        Ce tarif vous donne droit le droit de participer à l''ensemble des courses.
        Pour cette finale, plus de 2000 € de prime seront distribués et un lot de grande qualité sera offert à chaque arrivant',
         '2022-11-06',
@@ -57,3 +57,6 @@ VALUES ('Edition été 4 Saisons d''Amiens Métropole',
         Tarif unique : 7,70 euros (frais d''inscription compris) -
         Ce tarif vous donne droit le droit de participer à l''ensemble des courses.',
         '2023-07-02');
+
+Select *
+from epreuve;
