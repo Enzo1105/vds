@@ -31,7 +31,7 @@ function afficher(data) {
 
     today = dd + '/' + mm + '/' + yyyy;
 
-    // si la date de fermeture est supérieur à la date du jour , le bouton inscription s'affiche
+    // si la date de fermeture est supérieure à la date du jour , le bouton inscription se cache
     if (prochaineEpreuve.dateFermetureFr > today) {
 
         btnInscription.style.visibility = "hidden";
