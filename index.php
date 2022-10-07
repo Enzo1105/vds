@@ -97,14 +97,14 @@ require RACINE . '/include/head.php';
         <div id="prochaine_epreuve"></div>
         <div id="description"></div>
         <div>
-            <a id='inscription' class="btn btn-sm btn-danger" href="https://www.klikego.com/inscription/finale-des-quatre-saisons-2022/running%02course-a-pied/1603054434896-7">
+            <a id='btnInscription' class="btn btn-sm btn-danger">
             S'inscrire
             </a>
-            <a class="btn btn-sm btn-danger" href="https://www.klikego.com/inscrits/finale-des-quatre-saisons-2022/1603054434896-7">
+            <a id='btnInscrire'  class="btn btn-sm btn-danger">
             Voir les inscrits
             </a>
         </div>
-        <div id="date_fermeture"></div>
+        <div id="msgInscription" style="font-weight: bold"></div>
     </div>
 </div>
 

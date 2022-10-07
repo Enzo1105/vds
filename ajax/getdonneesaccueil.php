@@ -16,6 +16,7 @@ $lesDonnees['bandeau'] = base::getLeBandeau();
 
 // récupération de la prochaine édition des 4 saisons
 
+
 // récupération du dernier résultat datant de moins de 15 jours concernant les coureurs du club paru sur le site de la ffa : table resultatffa
 
 // récupération des partenaires

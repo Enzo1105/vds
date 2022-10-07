@@ -22,6 +22,15 @@ class Std
      * une quatrième donnée 'unicite' de valeur 1 peut être transmise s'il faut vérifier que la valeur est unique
      * @param string $table nom de la table
      */
+    public static function necessiteConnexion(): void
+    {
+        if (!isset($_SESSION['membre'])) {
+            $_SESSION['url'] = $_SERVER['PHP_SELF'];
+            header("location:/profil/connexion.php");
+            exit;
+        }
+    }
+
     public static function update(string $table) : int | string
     {
         if (!Controle::existe('colonne', 'valeur', 'id')) {
