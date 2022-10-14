@@ -18,7 +18,7 @@ function afficher(data) {
         btnInscription.style.display = "none";
         btnInscrire.style.display = "none";
     } else {
-        // ce qui ne dépend âs des dates :  LAdate et la description
+        // ce qui ne dépend pas des dates :  La date et la description
         let prochaineEpreuve = data[0];
         console.log(data[0]);
         document.getElementById("prochaine_epreuve").innerText = "Prochaine édition des 4 saisons : le " + prochaineEpreuve.dateCourse;
@@ -33,14 +33,14 @@ function afficher(data) {
 
         today = dd + '/' + mm + '/' + yyyy;
 
-        // si les inscriptions ne sont encore ouvertes
+        // si les inscriptions ne sont pas encore ouvertes
         if (prochaineEpreuve.dateOuverture > prochaineEpreuve.today) {
             btnInscription.style.display = "none";
             btnInscrire.style.display = "none";
             msgInscription.innerText =  "Les inscriptions seront ouvertes à partir du " + prochaineEpreuve.dateOuvertureFr
             msgInscription.style.fontWeight = 'bold';
         } else if (prochaineEpreuve.dateFermeture > prochaineEpreuve.today) {
-            // LEs inscriptions sont encore ouvertes
+            // les inscriptions sont encore ouvertes
             btnInscription.href = prochaineEpreuve.urlInscription;
             btnInscrire.href = prochaineEpreuve.urlInscrit;
             msgInscription.innerText =  "Les inscriptions sont possibles jusqu'au " + prochaineEpreuve.dateFermetureFr
@@ -48,7 +48,7 @@ function afficher(data) {
             // les inscriptions sont closes
             btnInscription.style.display = "none";
             btnInscrire.href = prochaineEpreuve.urlInscrit;
-            msgInscription.innerText =  "Les inscriptions sont closes depuis le. " + prochaineEpreuve.dateFermetureFr
+            msgInscription.innerText =  "Les inscriptions sont closes depuis le " + prochaineEpreuve.dateFermetureFr
 
         }
     }

@@ -58,5 +58,4 @@ VALUES ('Edition été 4 Saisons d''Amiens Métropole',
         Ce tarif vous donne droit le droit de participer à l''ensemble des courses.',
         '2023-07-02');
 
-Select *
-from epreuve;
+Select * from epreuve;

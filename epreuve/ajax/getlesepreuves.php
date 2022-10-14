@@ -15,9 +15,6 @@ $sql = <<<EOD
                 limit 1;
 EOD;
 
-// A FAIRE !! : TROUVER UN MOYEN POUR RECUPERER UNIQUEMENT LA PROCHAINE EPREUVE
-// EN FONCTION DE LA DATE
-
 $curseur = $db->query($sql);
 $lesLignes = $curseur->fetchAll(PDO::FETCH_ASSOC);
 $curseur->closeCursor();

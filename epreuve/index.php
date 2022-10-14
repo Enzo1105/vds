@@ -3,7 +3,7 @@
  * Page d'accueil affichant toutes les fonctionnalités offertes
  */
 
-require 'include/initialisation.php';
+require '../include/initialisation.php';
 
 // Génération du contenu du cadre membre
 $cadreMembre = "";
@@ -59,79 +59,42 @@ $titreFonction = "Site de l'Amicale du Val de Somme";
 require RACINE . '/include/head.php';
 ?>
 <script src="index.js"></script>
-<script src="epreuve/epreuve.js"></script>
-
-<div id="msg" class="m-3"></div>
-<div class="card border-dark mx-2 mb-2">
-    <div class="card-header text-white" style="background-color: #343a40">
-        <span style="" class="card-text">Le Club</span>
-    </div>
-    <div class="card-body">
-        <a class="btn btn-sm btn-outline-dark m-2 shadow-sm " href="/page/club.php">
-            Présentation
-        </a>
-        <a class="btn btn-sm btn-outline-dark m-2 shadow-sm " href="/page/adhesion.php">
-            Adhésion
-        </a>
-
-        <a class="btn btn-sm btn-outline-dark m-2 shadow-sm " href="/page/formation.php">
-            Formation
-        </a>
-        <div class="marquee-rtl">
-            <div id='detailBandeau' class=" article fst-italic"></div>
-        </div>
-    </div>
-</div>
+<script src="epreuveadmin.js"></script>
 
 <div class="card border-dark mx-2 mb-2">
     <div class="card-header text-white" style="background-color: #343a40">
-        <span style="" class="card-text">Les 4 saisons</span>
+        <span style="" class="card-text">Administration épreuves des 4 saisons</span>
     </div>
     <div class="card-body">
-        <a class="btn btn-sm btn-outline-dark m-2 shadow-sm " href="/page/4saisons.php">
-            Présentation
-            <i class="bi bi-info-circle text-info"
-               data-bs-toggle="popover"
-               data-bs-content="Calendrier, horaires et autres informations à connaitre">
-            </i>
+        <!-- <table>
+            <thead>
+            <tr>
+                <th colspan="2">The table header</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>The table body</td>
+                <td>with two columns</td>
+            </tr>
+            </tbody>
+        </table>
+        --!>
+
+        <p id="dateepreuve">
+
+        </p>
+        <a id='btnAjouter' class="btn btn-sm btn-success">
+            Ajouter
         </a>
-        <div id="prochaine_epreuve"></div>
-        <div id="description"></div>
-        <div>
-            <a id='btnInscription' class="btn btn-sm btn-danger">
-                S'inscrire
-            </a>
-            <a id='btnInscrire' class="btn btn-sm btn-danger">
-                Voir les inscrits
-            </a>
-        </div>
-        <div id="msgInscription" style="font-weight: bold"></div>
+        <a id='btnModifier' class="btn btn-sm btn-warning">
+            Modifier
+        </a>
+        <a id='btnSupprimer' class="btn btn-sm btn-danger">
+            Supprimer
+        </a>
     </div>
 </div>
 
 
-
-<div class="card border-dark mx-2 mb-2">
-    <div class="card-header text-white" style="background-color: #343a40">
-        <span style="" class="card-text">Espace Membre</span>
-    </div>
-    <div class="card-body">
-        <?= $cadreMembre ?>
-    </div>
-</div>
-
-<?php
-if ($cadreAdmin !== '') {
-    ?>
-    <div class="card border-dark mx-2 mb-2">
-        <div class="card-header text-white" style="background-color: #343a40">
-            <span style="" class="card-text">Espace Administration</span>
-        </div>
-        <div class="card-body">
-            <?= $cadreAdmin ?>
-        </div>
-    </div>
-    <?php
-}
-?>
 <?php require RACINE . '/include/pied.php'; ?>
