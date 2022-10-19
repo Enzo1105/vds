@@ -1,33 +1,10 @@
 <?php
 /**
- * Page d'accueil affichant toutes les fonctionnalités offertes
+ * Page d'accueil admin des épreuves
  */
 
-require '../include/initialisation.php';
+require 'include/initialisation.php';
 
-// Génération du contenu du cadre membre
-$cadreMembre = "";
-if (isset($_SESSION['membre'])) {
-
-    // option statique du menu 'Espace membres
-    $cadreMembre .= <<<EOD
-            <a class="btn btn-sm btn-outline-dark m-2 shadow-sm" href="/page/formation.php">Formation</a>
-
-            <a class="btn btn-sm btn-outline-dark m-2 shadow-sm" href="/profil/annuaire.php">Annuaire</a>
-            <a class="btn btn-sm btn-outline-dark m-2 shadow-sm" href="/profil/fiche.php">Ma fiche membre
-                <i class="bi bi-info-circle text-info"
-                   data-bs-toggle="popover"
-                   data-bs-content="Complétez si vous le souhaitez vos informations personnelles : téléphone, photo.<br>Abonnez vous à la newletters ">
-                </i>
-            </a>
-            <a class="btn btn-sm btn-outline-dark m-2 shadow-sm" href="/profil/modificationpassword.php">Modifier mon mot de passe</a>
-            <a class='btn btn-sm btn-danger m-2 shadow-sm' href='/profil/deconnexion.php'>Se déconnecter</a>
-EOD;
-} else {
-    $cadreMembre = "<a class='btn btn-sm btn-danger m-2 shadow-sm' href='/profil/connexion.php'>Se connecter</a>";
-    $cadreMembre .= "<a class='btn btn-sm btn-outline-dark m-2 shadow-sm' href='/profil/oublipassword.php'>J'ai oublié mon mot de passe</a>";
-    $cadreMembre .= "<a class='btn btn-sm btn-outline-dark m-2 shadow-sm' href='/profil/oublilogin.php'>J'ai oublié mon login</a>";
-}
 
 // Génération des options du menu Administration
 
@@ -79,7 +56,7 @@ require RACINE . '/include/head.php';
             </tr>
             </tbody>
         </table>
-        --!>
+        -->
 
         <p id="dateepreuve">
 

@@ -34,7 +34,7 @@ function afficher(data) {
             document.getElementById("description").innerText = "Description: " + prochaineEpreuve.description;
             document.getElementById("dateepreuve").value = "Edition d'automne: " + prochaineEpreuve.dateCourse;
 
-            // avoir la date d'aujourd'hui avec le même format que sql
+            // avoir la date du jour avec le même format qu'en sql
             let today = new Date();
             let dd = String(today.getDate()).padStart(2, '0');
             let mm = String(today.getMonth() + 1).padStart(2, '0'); //Janvier = 0!

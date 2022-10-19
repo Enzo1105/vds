@@ -33,7 +33,7 @@ if ($erreur) exit;
 
 require '../../class/class.controle.php';
 $nom = strtoupper(Controle::supprimerEspace($_POST['nom']));
-$idPays = trim($_POST['idPays']);
+$description = trim($_POST['description']);
 
 // Contrôle des données
 
@@ -47,32 +47,32 @@ if ($nom === '') {
 } elseif (!preg_match("/^[A-Z]( ?[A-Z])*$/", $nom)) {
     echo "\nLe nom ne doit comporter que des lettres majuscules non accentuées et des espaces";
     $erreur = true;
-} elseif (mb_strlen($nom) > 30) {
-    echo "\nLe nom ne doit pas dépasser 30 caractères";
+} elseif (mb_strlen($nom) > 70) {
+    echo "\nLe nom ne doit pas dépasser 70 caractères";
     $erreur = true;
 }
 
-// contrôle du nom du pays
-if (empty($idPays)) {
-    echo "\nLe nom du pays doit être renseigné.";
+// contrôle de la description de l'épreuve
+if (empty($description)) {
+    echo "\nLa description de l'épreuve doit être renseignée.";
     $erreur = true;
-} elseif (!preg_match("/^[A-Z]( ?[A-Z])*$/", $idPays)) {
-    echo "\nLe nom ne doit comporter que des lettres majuscules non accentuées et des espaces : $idPays.";
+} elseif (!preg_match("/^[A-Z]( ?[A-Z])*$/", $description)) {
+    echo "\nLa description ne doit comporter que des lettres majuscules non accentuées et des espaces : $description.";
     $erreur = true;
 } else {
-    // Vérification de l'existence de l'id du pays
+    // Vérification de l'existence de l'id du Description
     $sql = <<<EOD
 			SELECT 1
-			FROM ecurie
-			where id = :idPays;
+			FROM epreuve
+			where id = :description;
 EOD;
     $curseur = $db->prepare($sql);
-    $curseur->bindParam('idPays', $idPays);
+    $curseur->bindParam('description', $description);
     $curseur->execute();
     $ligne = $curseur->fetch(PDO::FETCH_ASSOC);
     $curseur->closeCursor();
     if (!$ligne) {
-        echo "Ce pays n'existe pas";
+        echo "Cette Description n'existe pas";
         $erreur = true;
     }
 }
@@ -80,12 +80,12 @@ EOD;
 // enregistrement de l'ajout
 
 $sql = <<<EOD
-    insert into ecurie(nom, idPays)
-           values (:nom, :idPays);
+    insert into epreuve(nom, description)
+           values (:nom, :description);
 EOD;
 $curseur = $db->prepare($sql);
 $curseur->bindParam('nom', $nom);
-$curseur->bindParam('idPays', $idPays);
+$curseur->bindParam('description', $description);
 try {
     $curseur->execute();
     echo 1;
