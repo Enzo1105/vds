@@ -3,7 +3,7 @@
  * Page d'accueil admin des épreuves
  */
 
-require 'include/initialisation.php';
+require '../include/initialisation.php';
 
 
 // Génération des options du menu Administration
@@ -43,32 +43,15 @@ require RACINE . '/include/head.php';
         <span style="" class="card-text">Administration épreuves des 4 saisons</span>
     </div>
     <div class="card-body">
-        <!-- <table>
-            <thead>
-            <tr>
-                <th colspan="2">The table header</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr>
-                <td>The table body</td>
-                <td>with two columns</td>
-            </tr>
-            </tbody>
-        </table>
-        -->
-
-        <p id="dateepreuve">
-
-        </p>
-        <a id='btnAjouter' class="btn btn-sm btn-success">
+        <a id='btnAjouter' class="btn btn-md btn-success">
             Ajouter
         </a>
-        <a id='btnModifier' class="btn btn-sm btn-warning">
+        <br>
+        <br>
+        <a id='btnModifier' class="btn btn-md btn-warning">
             Modifier
         </a>
-        <a id='btnSupprimer' class="btn btn-sm btn-danger">
-            Supprimer
+        <a id='btnSupprimer' class="btn btn-md bi-trash btn-danger">
         </a>
     </div>
 </div>

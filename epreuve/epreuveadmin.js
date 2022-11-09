@@ -21,11 +21,6 @@ function init() {
 }
 
 function afficher(data) {
-    console.log(data);
-    if (data.length === 0) {
-        btnInscription.style.display = "none";
-        btnInscrire.style.display = "none";
-    } else {
         for (const epreuve of data) {
             // ce qui ne dépend pas des dates :  La date et la description
             let prochaineEpreuve = data[0];
@@ -58,10 +53,8 @@ function afficher(data) {
                 btnInscription.style.display = "none";
                 btnInscrire.href = prochaineEpreuve.urlInscrit;
                 msgInscription.innerText = "Les inscriptions sont closes depuis le " + prochaineEpreuve.dateFermetureFr
-
             }
         }
-    }
 }
 
 function ajouter() {
@@ -77,7 +70,7 @@ function ajouter() {
 
     //  demande d'ajout dans la base de données
     $.ajax({
-        url: '../epreuve/index.php',
+        url: '../ajax/epreuve/ajouter.php',
         type: 'POST',
         data: {
             nom: nom.value,
@@ -92,6 +85,48 @@ function ajouter() {
             // effacer le contenu des champs
             for(const input of document.querySelectorAll('input.ctrl'))
                 input.value = "";
+        },
+        error: (reponse) => Std.afficherErreur(reponse.responseText)
+    })
+}
+
+function modifier() {
+    $.ajax({
+        url: '../ajax/epreuve/modifier.php',
+        type: 'POST',
+        data: {
+            nom: nom.value,
+            description: description.value,
+            date: date.value,
+            dateOuverture: dateOuverture.value,
+            dateFermeture: dateFermeture.value,
+        },
+        dataType: "json",
+        success: function () {
+            Std.afficherSucces("Modification enregistrée");
+            // mettre à jour la zone de liste en supprimant l'opion sélectionnée et relancer la recherche
+
+        },
+        error: (reponse) => Std.afficherErreur(reponse.responseText)
+    })
+}
+
+function supprimer() {
+    $.ajax({
+        url: '../ajax/epreuve/supprimer.php',
+        type: 'POST',
+        data: {
+            nom: nom.value,
+            description: description.value,
+            date: date.value,
+            dateOuverture: dateOuverture.value,
+            dateFermeture: dateFermeture.value,
+        },
+        dataType: "json",
+        success: function () {
+            Std.afficherSucces("Suppression réalisée");
+            // mettre à jour la zone de liste en supprimant l'otpion sélectionnée et relancer la recherche
+
         },
         error: (reponse) => Std.afficherErreur(reponse.responseText)
     })

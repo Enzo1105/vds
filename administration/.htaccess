@@ -1,4 +1,4 @@
-AuthType Basic
-AuthUserFile "j:/vds/.htpasswd"
-AuthName "Administration"
-require valid-user
+#AuthType Basic
+#AuthUserFile "j:/vds/.htpasswd"
+#AuthName "Administration"
+#require valid-user

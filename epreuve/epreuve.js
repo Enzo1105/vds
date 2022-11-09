@@ -13,7 +13,6 @@ function init() {
 }
 
 function afficher(data) {
-    console.log(data);
     if (data.length === 0) {
         btnInscription.style.display = "none";
         btnInscrire.style.display = "none";
