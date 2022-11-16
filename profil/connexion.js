@@ -68,9 +68,13 @@ function connecter() {
             type: 'POST',
             data: {login: login.value, password: password.value},
             dataType: 'json',
-            error: reponse => { msg.innerHTML = Std.genererMessage(reponse.responseText)},
-            success: (url) => {
-                    location.href = url
+            error: reponse => { msg.innerHTML = Std.genererMessage(reponse.responseText)
+            },
+            success: () => {
+                    if (password.value === '0000')
+                        location.href = '/profil/personnalisationpassword.php'
+                    else
+                        location.href = "/index.php"
             }
         })
     }

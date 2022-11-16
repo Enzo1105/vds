@@ -77,7 +77,7 @@ function init() {
     $nomPrenom.easyAutocomplete(option);
 }
 
-// Remplir la zone de liste des administrateurs et les modules disponibles sous forme de case à  cocher
+// Remplir la zone de liste des administrateurs et les modules disponibles sous forme de case à cocher
 function remplirLesDonnees(data) {
     if (data.lesAdministrateurs.length > 0) {
         for (const element of data.lesAdministrateurs) {
@@ -149,12 +149,28 @@ function ajouterAdministrateur() {
             success: function () {
                 // ajout dans la zone de liste
                 idMembre.add(new Option(nomPrenom.value, id));
+                // sélectionner cet élément
+                idMembre.selectedIndex = idMembre.length - 1;
+
+                // décocher toutes les cases
+                decocherCase();
+
                 // effacement des données
-                $nomPrenom.val('');
-                id = null;
+                //$nomPrenom.val('');
+                //id = null;
+
                 // fermeture de la fenêtre modale
-                $("#frmAjout").modal("hide")
-                Std.afficherSucces('Administrateur ajouté');
+                let parametre = {
+                    message : "<div class='m-3' style='text-align: justify'>" + nomPrenom.value + " fait maintenant partie des administrateurs.<br/>" +
+                        " Il vous reste à selectionner les modules qu il peut gérer",
+                    type : 'success',
+                    fermeture : 1,
+                    surFermeture : function(){
+                        $nomPrenom.val('');
+                        id = null;
+                    }
+                }
+                Std.afficherMessage(parametre);
 
             },
             error: reponse => msgFrmAjout.innerHTML = Std.genererMessage(reponse.responseText),
