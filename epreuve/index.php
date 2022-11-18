@@ -43,6 +43,11 @@ require RACINE . '/include/head.php';
 <script src="https://cdnjs.cloudflare.com/ajax/libs/easy-autocomplete/1.3.5/jquery.easy-autocomplete.min.js"></script>
 <script src="index.js"></script>
 <div id="msg" class="m-3"></div>
+<div class="card border-dark mx-2 mb-2">
+    <div class="card-header text-white" style="background-color: #343a40">
+        <span style="" class="card-text">Ajout/Suppression/Modifications des épreuves</span>
+    </div>
+<div id="msg" class="m-3"></div>
 <div class="row">
     <div class="col-12 col-sm-10 col-md-8 col-lg-6">
         <div class="input-group mb-3 col-6">
@@ -58,11 +63,14 @@ require RACINE . '/include/head.php';
                title="Ajouter une épreuve">
                 Ajouter
             </a>
+            <a class="btn btn-warning" href="../epreuve/modifierepreuve.php">
+                Modifier une épreuve
+            </a>
         </div>
     </div>
 </div>
 
-<div id='droit' class="row border p-3">
+<div id='droit'>
     <div class="d-flex justify-content-between">
         <h4 class="">Les épreuves disponibles</h4>
     </div>

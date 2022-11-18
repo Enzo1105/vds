@@ -133,7 +133,7 @@ function supprimer() {
         dataType: "json",
         success: function () {
             Std.afficherSucces("Suppression réalisée");
-            // mettre à jour la zone de liste en supprimant l'otpion sélectionnée et relancer la recherche
+            // mettre à jour la zone de liste en supprimant l'option sélectionnée et relancer la recherche
 
         },
         error: (reponse) => Std.afficherErreur(reponse.responseText)
