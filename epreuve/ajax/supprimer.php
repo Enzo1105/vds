@@ -1,7 +1,7 @@
 <?php
 // vérification des paramètre transmis
 if (!isset($_POST['nom'])) {
-    echo "\nLe paramètre 'id' indiquant l'id' de l'épreuve n'est pas transmis";
+    echo "\nLe paramètre 'id' indiquant l'id de l'épreuve n'est pas transmis";
     $erreur = true;
 }
 

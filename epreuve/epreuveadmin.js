@@ -3,11 +3,18 @@
 window.onload = init;
 
 function init() {
+    btnAjouterEpreuve.onclick = ajouter();
+    btnSupprimerEpreuve.onclick = () => {
+        Std.confirmer(supprimer());
+    }
+
     $.ajax({
         url: '/epreuve/ajax/getlesepreuves.php',
         type: 'GET',
         dataType: 'json',
-        error: reponse => { msg.innerHTML = Std.genererMessage(reponse.responseText)},
+        error: reponse => {
+            msg.innerHTML = Std.genererMessage(reponse.responseText)
+        },
         success: afficher
     });
 
@@ -21,40 +28,40 @@ function init() {
 }
 
 function afficher(data) {
-        for (const epreuve of data) {
-            // ce qui ne dépend pas des dates :  La date et la description
-            let prochaineEpreuve = data[0];
-            console.log(data[0]);
-            document.getElementById("prochaine_epreuve").innerText = "Prochaine édition des 4 saisons : le " + prochaineEpreuve.dateCourse;
-            document.getElementById("description").innerText = "Description: " + prochaineEpreuve.description;
-            document.getElementById("dateepreuve").value = "Edition d'automne: " + prochaineEpreuve.dateCourse;
+    for (const epreuve of data) {
+        // ce qui ne dépend pas des dates :  La date et la description
+        let prochaineEpreuve = data[0];
+        console.log(data[0]);
+        document.getElementById("prochaine_epreuve").innerText = "Prochaine édition des 4 saisons : le " + prochaineEpreuve.dateCourse;
+        document.getElementById("description").innerText = "Description: " + prochaineEpreuve.description;
+        document.getElementById("dateepreuve").value = "Edition d'automne: " + prochaineEpreuve.dateCourse;
 
-            // avoir la date du jour avec le même format qu'en sql
-            let today = new Date();
-            let dd = String(today.getDate()).padStart(2, '0');
-            let mm = String(today.getMonth() + 1).padStart(2, '0'); //Janvier = 0!
-            let yyyy = today.getFullYear();
+        // avoir la date du jour avec le même format qu'en sql
+        let today = new Date();
+        let dd = String(today.getDate()).padStart(2, '0');
+        let mm = String(today.getMonth() + 1).padStart(2, '0'); //Janvier = 0!
+        let yyyy = today.getFullYear();
 
-            today = dd + '/' + mm + '/' + yyyy;
+        today = dd + '/' + mm + '/' + yyyy;
 
-            // si les inscriptions ne sont pas encore ouvertes
-            if (prochaineEpreuve.dateOuverture > prochaineEpreuve.today) {
-                btnInscription.style.display = "none";
-                btnInscrire.style.display = "none";
-                msgInscription.innerText = "Les inscriptions seront ouvertes à partir du " + prochaineEpreuve.dateOuvertureFr
-                msgInscription.style.fontWeight = 'bold';
-            } else if (prochaineEpreuve.dateFermeture > prochaineEpreuve.today) {
-                // les inscriptions sont encore ouvertes
-                btnInscription.href = prochaineEpreuve.urlInscription;
-                btnInscrire.href = prochaineEpreuve.urlInscrit;
-                msgInscription.innerText = "Les inscriptions sont possibles jusqu'au " + prochaineEpreuve.dateFermetureFr
-            } else {
-                // les inscriptions sont closes
-                btnInscription.style.display = "none";
-                btnInscrire.href = prochaineEpreuve.urlInscrit;
-                msgInscription.innerText = "Les inscriptions sont closes depuis le " + prochaineEpreuve.dateFermetureFr
-            }
+        // si les inscriptions ne sont pas encore ouvertes
+        if (prochaineEpreuve.dateOuverture > prochaineEpreuve.today) {
+            btnInscription.style.display = "none";
+            btnInscrire.style.display = "none";
+            msgInscription.innerText = "Les inscriptions seront ouvertes à partir du " + prochaineEpreuve.dateOuvertureFr
+            msgInscription.style.fontWeight = 'bold';
+        } else if (prochaineEpreuve.dateFermeture > prochaineEpreuve.today) {
+            // les inscriptions sont encore ouvertes
+            btnInscription.href = prochaineEpreuve.urlInscription;
+            btnInscrire.href = prochaineEpreuve.urlInscrit;
+            msgInscription.innerText = "Les inscriptions sont possibles jusqu'au " + prochaineEpreuve.dateFermetureFr
+        } else {
+            // les inscriptions sont closes
+            btnInscription.style.display = "none";
+            btnInscrire.href = prochaineEpreuve.urlInscrit;
+            msgInscription.innerText = "Les inscriptions sont closes depuis le " + prochaineEpreuve.dateFermetureFr
         }
+    }
 }
 
 function ajouter() {
@@ -83,9 +90,10 @@ function ajouter() {
         success: function () {
             Std.afficherSucces('... ajouté')
             // effacer le contenu des champs
-            for(const input of document.querySelectorAll('input.ctrl'))
+            for (const input of document.querySelectorAll('input.ctrl'))
                 input.value = "";
         },
+
         error: (reponse) => Std.afficherErreur(reponse.responseText)
     })
 }

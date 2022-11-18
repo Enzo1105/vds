@@ -138,7 +138,7 @@ function ajouterAdministrateur() {
     msgFrmAjout.innerText = "";
     messageNomPrenom.innerText = "";
     if (id == null) {
-        messageNomPrenom.innerText = "Il faux sélectionner un membre dans la liste à partir de la saisie de son nom"
+        messageNomPrenom.innerText = "Il faut sélectionner un membre dans la liste à partir de la saisie de son nom"
     } else {
         // demande d'ajout
         $.ajax({
