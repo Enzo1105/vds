@@ -34,7 +34,7 @@ function init() {
                     btnEnvoyer.disabled = false;
                 },
                 success: () => {
-                    msg.innerHTML = Std.genererMessage("Votre login vient de vous êtes envoyé par mail", 'vert')
+                    msg.innerHTML = Std.genererMessage("Votre login vient de vous être envoyé par mail", 'vert')
                     //btnEnvoyer.disabled = false;
                     Std.viderLesChamps();
                 }
