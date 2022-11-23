@@ -8,7 +8,7 @@
  */
 
 // attention : la classe Mail utilise la constante racine
-
+// pas de changement dynamique ici
 
 session_start();
 define('RACINE', $_SERVER['DOCUMENT_ROOT']);
@@ -50,7 +50,12 @@ try {
     // suppression de l'obligation de personnaliser son mot de passe
     unset($_SESSION['personnaliser']);
 
-    echo 1;
+    if (isset($_SESSION['url'])) {
+        echo json_encode($_SESSION['url']);
+        unset($_SESSION['url']); }
+    else {
+        echo json_encode('/index.php');
+    }
 } catch (Exception $e) {
     echo substr($e->getMessage(), strrpos($e->getMessage(), '#') + 1);
 }

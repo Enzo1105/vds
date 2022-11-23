@@ -10,7 +10,7 @@ session_start();
 define('RACINE', $_SERVER['DOCUMENT_ROOT']);
 $titreFonction = 'Personnaliser mon mot de passe';
 
-require RACINE. '/include/head.php';
+require RACINE . '/include/head.php';
 
 ?>
 <script src="personnalisationpassword.js"></script>
