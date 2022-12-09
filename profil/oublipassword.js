@@ -67,8 +67,6 @@ function envoyer() {
                 msg.innerHTML = Std.genererMessage(rep, 'vert');
                 // passer à la phase 2
   
-  
-  
             }
         })
     }
