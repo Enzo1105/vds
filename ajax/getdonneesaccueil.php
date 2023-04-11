@@ -16,6 +16,20 @@ $lesDonnees['bandeau'] = base::getLeBandeau();
 
 // récupération de la prochaine édition des 4 saisons
 
+$sql = <<<EOD
+            select id, nom, description, DATE_FORMAT(date, "%d/%m/%Y") as dateCourse, urlInscription, urlInscrit, 
+                    DATE_FORMAT(dateOuverture, "%d/%m/%Y") as dateOuvertureFr, DATE_FORMAT(dateFermeture, "%d/%m/%Y") as dateFermetureFr,
+                    dateOuverture, dateFermeture, date, curdate() as today
+                from epreuve
+                where date > curdate() 
+                order by date
+                limit 1;
+EOD;
+$db = Database::getInstance();
+$curseur = $db->query($sql);
+$lesDonnees['epreuve'] = $curseur->fetchAll(PDO::FETCH_ASSOC);
+$curseur->closeCursor();
+
 
 // récupération du dernier résultat datant de moins de 15 jours concernant les coureurs du club paru sur le site de la ffa : table resultatffa
 

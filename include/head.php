@@ -11,7 +11,7 @@
 
 // la variable $titreFonction doit être créée si elle n'existe pas
 if (!isset($titreFonction))
-    $titreFonction = "";
+    $titreFonction = $_SERVER['PHP_SELF'];
 
 // personnalisation de l'entête de page : bouton Se connecter ou Se déconnecter
 $barre = "<a class='btn btn-sm btn-danger m-2 shadow-sm' href='/profil/connexion.php'>Se connecter</a>";

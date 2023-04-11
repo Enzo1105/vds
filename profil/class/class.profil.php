@@ -2,13 +2,44 @@
 
 class Profil
 {
+    public static function getNbTentative(string $login, string $ip): int
+    {
+        $sql = <<<EOD
+            Select count(*) from tentative
+            where (login = :login or ip = :ip)
+                and date > now() - interval 10 minute;
+EOD;
+        $db = Database::getInstance();
+        $curseur = $db->prepare($sql);
+        $curseur->bindParam('login', $login);
+        $curseur->bindParam('ip', $ip);
+        $curseur->execute();
+        $valeur = $curseur->fetchColumn();
+        $curseur->closeCursor();
+        return $valeur;
+    }
+
+    public static function enregistrerTentative(string $login, string $password): void
+    {
+        $ip = Std::getIp();
+        $sql = <<<EOD
+            insert into tentative(login, password, ip)
+            values (:login, :password, '$ip');
+EOD;
+        $db = Database::getInstance();
+        $curseur = $db->prepare($sql);
+        $curseur->bindParam('login', $login);
+        $curseur->bindParam('password', $password);
+        $curseur->execute();
+    }
+
     /**
      * retourner le login et l'email de l'utilisateur
      * @param string $nom Nom du membre
-     * @param string $prenom PRénom du membre
+     * @param string $prenom Prénom du membre
      * @return array|bool
      */
-    public static function getMembreByNomPrenom(string $nom, string $prenom): array | bool
+    public static function getMembreByNomPrenom(string $nom, string $prenom): array|bool
     {
         $sql = <<<EOD
             SELECT login, email

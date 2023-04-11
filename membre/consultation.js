@@ -18,10 +18,11 @@ function init() {
     $.ajax({
         url: 'ajax/getlesmembres.php',
         dataType: 'json',
-       error: reponse => { msg.innerHTML = Std.genererMessage(reponse.responseText)},
+        error: reponse => {
+            msg.innerHTML = Std.genererMessage(reponse.responseText)
+        },
         success: function (data) {
             for (const membre of data) {
-
                 let tr = lesLignes.insertRow();
 
                 tr.insertCell().innerText = membre.login;
@@ -32,7 +33,7 @@ function init() {
                 tr.insertCell().innerText = membre.telephone;
             }
             $("#leTableau").trigger('update');
-            
+
             pied.style.visibility = 'visible';
         }
 

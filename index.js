@@ -48,9 +48,43 @@ function afficher(data) {
 
 
     // affichage de la prochaine épreuve si renseignée
+    if (data.epreuve.length === 0) {
+        btnInscription.style.display = "none";
+        btnInscrire.style.display = "none";
+    } else {
+        // ce qui ne dépend pas des dates :  La date et la description
+        let prochaineEpreuve = data.epreuve[0];
+        document.getElementById("prochaine_epreuve").innerText = "Prochaine édition des 4 saisons : le " + prochaineEpreuve.dateCourse;
+        document.getElementById("description").innerHTML = prochaineEpreuve.description;
 
 
-    // les inscriptions ne sont pas forcément ouvertes
+        // avoir la date d'aujourd'hui avec le même format que sql
+        let today = new Date();
+        let dd = String(today.getDate()).padStart(2, '0');
+        let mm = String(today.getMonth() + 1).padStart(2, '0'); //Janvier = 0!
+        let yyyy = today.getFullYear();
+
+        today = dd + '/' + mm + '/' + yyyy;
+
+        // si les inscriptions ne sont pas encore ouvertes
+        if (prochaineEpreuve.dateOuverture > prochaineEpreuve.today) {
+            btnInscription.style.display = "none";
+            btnInscrire.style.display = "none";
+            msgInscription.innerText = "Les inscriptions seront ouvertes à partir du " + prochaineEpreuve.dateOuvertureFr
+            msgInscription.style.fontWeight = 'bold';
+        } else if (prochaineEpreuve.dateFermeture > prochaineEpreuve.today) {
+            // les inscriptions sont encore ouvertes
+            btnInscription.href = prochaineEpreuve.urlInscription;
+            btnInscrire.href = prochaineEpreuve.urlInscrit;
+            msgInscription.innerText = "Les inscriptions sont possibles jusqu'au " + prochaineEpreuve.dateFermetureFr
+        } else {
+            // les inscriptions sont closes
+            btnInscription.style.display = "none";
+            btnInscrire.href = prochaineEpreuve.urlInscrit;
+            msgInscription.innerText = "Les inscriptions sont closes depuis le " + prochaineEpreuve.dateFermetureFr
+
+        }
+    }
 
 
     // affichage des partenaires

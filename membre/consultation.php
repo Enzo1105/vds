@@ -27,10 +27,7 @@ require RACINE . '/include/head.php';
                 <th style=''>Téléphone</th>
             </tr>
             </thead>
-            <tbody id="lesLignes">
-
-
-            </tbody>
+            <tbody id="lesLignes"></tbody>
         </table>
     </div>
 <?php require RACINE . '/include/pied.php'; ?>

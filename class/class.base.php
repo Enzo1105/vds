@@ -5,7 +5,7 @@ class Base
     /**
      * @return string|null : Retourne le texte du bandeau qui peut être vide
      */
-    public static function getLeBandeau(): string | null
+    public static function getLeBandeau(): string|null
     {
         $db = Database::getInstance();
         $sql = "Select contenu From bandeau;";
@@ -14,7 +14,6 @@ class Base
         $curseur->closeCursor();
         return $contenu;
     }
-
 
 
     /**

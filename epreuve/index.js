@@ -1,63 +1,148 @@
-﻿'use strict';
+﻿"use strict";
 
 /**
- *    chargement de l'ensemble des données nécessaires afin d'alimenter la page d'accueil :
- *        dernier résultat présent sur le site FFA : table resultatFFA
- *        prochaine épreuve : table epreuve
- *        la dernière actualité : champ contenu de la table bandeau
- *        informations clubs et 4 saisons : table element
- *        partenaires et liens utiles : table partenaire et lien
+ * Définition des traitement sur l'interface de gestion des épreuves
+ * Utilisation du composant ckEditor pour la saisie de la description
  */
+
+// le tableau conserve les données des épreuves en mémoire
+
+let dateJour = new Date();
+// la date de l'épreuve doit être supérieure à la date du jour
+let min = dateJour.toFormatMySQL();
+let lesEpreuves = [];
+
 
 window.onload = init;
 
 /**
- *     chargement de l'ensemble des données nécessaires :
- *
+ * Chargement des épreuves et initialisation CkEditor
  */
 function init() {
+
+    CKEDITOR.replace('description');
+    // charger les épreuves
     $.ajax({
-        url: 'ajax/getdonneesaccueil.php',
+        url: 'ajax/getlesepreuves.php',
         dataType: 'json',
-        error: reponse => console.error(reponse.responseText),
-        success: afficher
+        error: reponse => {
+            msg.innerHTML = Std.genererMessage(reponse.responseText)
+        },
+        success: (data) => {
+            if (data.length > 0) {
+                formulaire.style.visibility = 'visible';
+                lesEpreuves = data;
+                for (let epreuve of lesEpreuves) {
+                    liste.add(new Option(epreuve.nom, epreuve.id));
+                }
+                afficher();
+            } else {
+                document.location.href = "ajout.php"
+            }
+        }
     });
 
-    // activation de toutes les infobulles et popover de la page
-    let option = {
-        trigger: "hover",
-        placement: "top",
-        html: true,
-    }
-    document.querySelectorAll('[data-bs-toggle="tooltip"]').forEach(element => new bootstrap.Tooltip(element));
-    document.querySelectorAll('[data-bs-toggle="popover"]').forEach(element => new bootstrap.Popover(element, option));
+    liste.onchange = afficher;
+    btnModifier.onclick = modifier;
+    btnSupprimer.onclick = () => Std.confirmer(() => supprimer(liste.value));
 }
 
 /**
- * Alimente en données les différents éléments de la page d'accueil
- * @param { Object } data données au format json
- *    date.lesClassements contient le nom des fichier pdf trouvé dans le répertoire
+ * Affichage des informations concernant l'épreuve sélectionnée dans la zone de liste
  */
-function afficher(data) {
+function afficher() {
+    let epreuve = lesEpreuves[liste.selectedIndex];
+    nom.value = epreuve.nom;
+    date.value = epreuve.date;
+    //  CKEDITOR.instances.description.setData(epreuve.description);
+    setTimeout(() => CKEDITOR.instances.description.setData(epreuve.description), 50);
+    dateOuverture.value = epreuve.dateOuverture
+    dateFermeture.value = epreuve.dateFermeture
+    urlInscription.value = epreuve.urlInscription
+    urlInscrit.value = epreuve.urlInscrit
+}
 
-    // alimentation du bandeau
-    detailBandeau.innerHTML = data.bandeau;
+/**
+ * Demande de modification après contrôle des données
+ * Le champ description géré par ckEditor demande un traitmlent particulier
+ */
+function modifier() {
+    let valide = Std.donneesValides();
 
+    // contrôle sur le champ description
+    let description = CKEDITOR.instances.description.getData().trim();
+    messageDescription.innerText = '';
+    if (description.length < 30) {
+        messageDescription.innerText = 'La description est insuffisamment renseignée (30 caractères minimum)';
+        valide = false;
+    }
 
-    // afficher le dernier résultat de moins de 15 jours publié sur le site de la F.F.A
+    if (valide) {
 
+        msg.innerHTML = "";
+        // mise à jour de la base de données
+        $.ajax({
+            url: 'ajax/modifier.php',
+            type: 'POST',
+            data: {
+                date: date.value,
+                nom: nom.value,
+                description: description,
+                id: liste.value,
+                dateOuverture: dateOuverture.value,
+                dateFermeture: dateFermeture.value,
+                urlInscription: urlInscription.value,
+                urlInscrit: urlInscrit.value
+            },
+            dataType: 'json',
+            error: reponse => {
+                msg.innerHTML = Std.genererMessage(reponse.responseText)
+            },
+            success: function () {
+                // mise à jour du tableau
+                let indice = liste.selectedIndex;
+                lesEpreuves[indice].nom = nom.value;
+                lesEpreuves[indice].description = description;
+                lesEpreuves[indice].date = date.value;
+                lesEpreuves[indice].dateOuverture = dateOuverture.value;
+                lesEpreuves[indice].dateFermeture = dateFermeture.value;
+                lesEpreuves[indice].urlInscription = urlInscription.value;
+                lesEpreuves[indice].urlInscrit = urlInscrit.value;
 
-    // affichage de la prochaine épreuve si renseignée
+                // mise à jour de l'interface
+                Std.afficherSucces('Modification enregistrée');
+                liste.options[liste.selectedIndex].text = nom.value
+            }
+        })
+    }
+}
 
+/**
+ * Demande de suppression
+ */
+function supprimer() {
+    $.ajax({
+        url: 'ajax/supprimer.php',
+        type: 'POST',
+        data: {id: liste.value},
+        dataType: 'json',
+        success: function () {
+            Std.afficherSucces('Suppression réalisée');
+            // mise à jour du tableau (il est synchronisé avec la zone de liste
+            let indice = liste.selectedIndex;
+            lesEpreuves.splice(indice, 1);
+            // mise à jour de la zone de liste
+            liste.removeChild(liste[indice]);
 
-    // les inscriptions ne sont pas forcément ouvertes
-
-
-    // affichage des partenaires
-
-
-    // affichage des liens
-
-    
-    pied.style.visibility = 'visible';
+            // mise à jour interface
+            if (lesEpreuves.length === 0) {
+                document.location.href = "ajout.php";
+            } else {
+                afficher();
+            }
+        },
+        error: reponse => {
+            msg.innerHTML = Std.genererMessage(reponse.responseText)
+        },
+    })
 }

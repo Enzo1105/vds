@@ -23,7 +23,6 @@ class Tableau
     /**
      * Constructeur d'un objet Tableau
      *
-
      * @param array $lesTailles
      * @param array $lesColonnes
      * @param array $lesClasses
@@ -66,10 +65,10 @@ EOD;
                         {$lesColonnes[$i]}
                      </th>
 EOD;
-          }
+            }
             $html .= "</tr></thead>";
         }
-        $html  .= "<tbody>";
+        $html .= "<tbody>";
         $this->tableau = $html;
     }
 
@@ -77,12 +76,12 @@ EOD;
      * Ajouter une ligne
      *
      * @param array $lesCellules Valeur de chaque cellule
-     * @param array $lesClasses  Classe associée à chaque cellule
+     * @param array $lesClasses Classe associée à chaque cellule
      * @param array $lesStyles Style associé à chaque cellule
      * @param $id string Identifiant associé à la ligne
      */
 
-    public function ajouterLigne($lesCellules, $lesStyles, $lesClasses, $id= '')
+    public function ajouterLigne($lesCellules, $lesStyles, $lesClasses, $id = '')
     {
         $html = "<tr id='$id'>";
         $nb = count($lesCellules);

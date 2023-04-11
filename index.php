@@ -5,10 +5,15 @@
 
 require 'include/initialisation.php';
 
+if (!isset($_SESSION['visite']))
+    Std::comptabiliserVisite();
+//$_SESSION
+
 // si la variable de session 'membre' n'existe pas mais que le cookie 'seSouvenir' existe
 // ALors on récupère la valeur du cookie et on vérifie qu'elle correspond à un membre
 // Si oui : on créer la variable de session 'membre'
 // Si non : on supprime le cookie
+
 if (!isset($_SESSION['membre']) && isset($_COOKIE["seSouvenir"])) {
     $seSouvenir = $_COOKIE["seSouvenir"];
 
@@ -28,6 +33,9 @@ EOD;
         $_SESSION['membre']['id'] = $ligne['id'];
         $_SESSION['membre']['login'] = $ligne['login'];
         $_SESSION['membre']['nomPrenom'] = $ligne['prenom'] . ' ' . $ligne['nom'];
+        // enregistrer la connexion
+        Std::enregistrerConnexion($ligne['id']);
+        Std::tracerDemande('connexion', $_SESSION['membre']);
         $option['path'] = '/';
         $option['httponly'] = true;
         $option['expires'] = time() + 3600 * 24 * 7;
@@ -100,7 +108,7 @@ $titreFonction = "Site de l'Amicale du Val de Somme";
 require RACINE . '/include/head.php';
 ?>
 <script src="index.js"></script>
-<script src="epreuve/epreuve.js"></script>
+
 
 <div id="msg" class="m-3"></div>
 <div class="card border-dark mx-2 mb-2">
@@ -138,18 +146,17 @@ require RACINE . '/include/head.php';
         </a>
         <div id="prochaine_epreuve"></div>
         <div id="description"></div>
-        <div>
-            <a id='btnInscription' class="btn btn-sm btn-danger">
+        <div class="btnInscrip">
+            <a id='btnInscription' target="klikego" class="btn btn-sm btn-danger">
                 S'inscrire
             </a>
-            <a id='btnInscrire' class="btn btn-sm btn-danger">
+            <a id='btnInscrire' target="klikego" class="btn btn-sm btn-danger">
                 Voir les inscrits
             </a>
         </div>
         <div id="msgInscription" style="font-weight: bold"></div>
     </div>
 </div>
-
 
 
 <div class="card border-dark mx-2 mb-2">

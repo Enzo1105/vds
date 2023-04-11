@@ -4,6 +4,27 @@
  */
 
 require '../include/initialisation.php';
+
+// contrôle d'accès pour éviter les demandes de connexions superfles
+
+$ip = Std::getIp();
+$nbTentative = Profil::getNbTentative('', $ip);
+if ($nbTentative >= 5) {
+    $_SESSION['erreur'] = "Trop de tentatives de connexion, veuillez attendre 10 minutes pour vous reconnecter avant une nouvelle tentative";
+    header('location: /erreur/index.php');
+    exit;
+}
+
+$msg = "";
+if ($nbTentative > 0) {
+    $msg .= "<br>Il vous reste ";
+    if ($nbTentative === 4)
+        $msg .= "une seule tentative !";
+    else
+        $msg .= (5 - $nbTentative) . "tentatives.";
+}
+
+
 $titreFonction = "Connexion";
 require RACINE . '/include/head.php';
 ?>
@@ -14,7 +35,9 @@ require RACINE . '/include/head.php';
             Connexion à l'espace membre
         </div>
         <div class="card-body">
-            <div id="msg" class="mt-3"></div>
+            <div id="msg" class="mt-3">
+                <?= $msg ?>
+            </div>
             <div class="d-flex flex-column">
                 <label for="login">
                     <input id="login" type="text" required class="ctrl mb-3" placeholder="Login"

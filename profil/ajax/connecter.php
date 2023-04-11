@@ -26,6 +26,7 @@ if ($password === '0000') {
 
 // contrôle
 // vérification du login
+
 $ligne = Profil::getMembreByLogin($login);
 
 if ($ligne && $ligne['password'] === hash('sha256', $password)) {
@@ -34,8 +35,13 @@ if ($ligne && $ligne['password'] === hash('sha256', $password)) {
     $_SESSION['membre']['login'] = $ligne['login'];
     $_SESSION['membre']['nomPrenom'] = $ligne['prenom'] . ' ' . $ligne['nom'];
 
-    if($memoriser === '1'){
-        $empreinte = hash('sha256', $ligne['prenom']. $login . $ligne['nom']);
+    // enregistrer la connexion
+
+    Std::enregistrerConnexion($ligne['id']);
+    Std::tracerDemande("connexion", $_SESSION['membre']['nomPrenom']);
+
+    if ($memoriser === '1') {
+        $empreinte = hash('sha256', $ligne['prenom'] . $login . $ligne['nom']);
         $option['expires'] = time() + 3600 * 24 * 7;
         $option['path'] = '/';
         $option['httponly'] = true;
@@ -56,6 +62,25 @@ if ($ligne && $ligne['password'] === hash('sha256', $password)) {
     }
 } else {
     echo "Il y a une erreur dans votre saisie. <br> Veuillez vérifier les informations.";
+    // mémoriser la tentative
+    $ip = Std::getIp();
+    profil::enregistrertentative($login, $password);
+    // récupérer le nombre de tentative
+    $nbTentative = Profil::getNbTentative($login, $ip);
+    if ($nbTentative === 5) {
+        $_SESSION['erreur'] = "Trop de tentatives de connexion, veuillez attendre 10 minutes pour vous reconnecter avant une nouvelle tentative";
+        echo json_encode('/erreur/index.php');
+        exit;
+    }
+
+    $msg = "Il y a une erreur dans votre saisie.";
+    $msg .= "<br>Veuillez vérifier les informations.";
+    $msg .= "<br>Il vous reste ";
+    if ($nbTentative === 4)
+        $msg .= "Une seule tentative !";
+    else
+        $msg .= (5 - $nbTentative) . "tentatives.";
+    echo $msg;
 }
 
 

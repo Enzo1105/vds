@@ -1,25 +1,27 @@
 <?php
 require RACINE . '/vendor/autoload.php';
+
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\SMTP;
 use PHPMailer\PHPMailer\Exception;
 
-class Mail {
+class Mail
+{
     private object $mail;
 
     public function __construct()
     {
         $this->mail = new PHPMailer;
         //Server settings
-        // $this->mail->SMTPDebug = SMTP::DEBUG_SERVER;
+        // $this->mail->SMTPDebug = 1;
         $this->mail->isSMTP();
-        $this->mail->Host = 'smtp-serin.alwaysdata.net';
+        $this->mail->Host = 'smtp-verghote.alwaysdata.net';
         $this->mail->SMTPAuth = true;
-        $this->mail->Username = 'serin@alwaysdata.net';
+        $this->mail->Username = 'verghote@alwaysdata.net';
         $this->mail->Password = 'SlamSr.2023';
         $this->mail->SMTPSecure = 'ssl';
         $this->mail->Port = 465;
-        $this->mail->setFrom('serin@alwaysdata.net', 'Webmaster');
+        $this->mail->setFrom('verghote@alwaysdata.net', 'Webmaster Site');
 
     }
 
@@ -29,7 +31,8 @@ class Mail {
      * @param string $nom
      * @return void
      */
-    public function setExpediteur(string $email, string $nom) : void {
+    public function setExpediteur(string $email, string $nom): void
+    {
         $this->mail->setFrom($email, $nom);
     }
 
@@ -47,13 +50,13 @@ class Mail {
      * @param string $message
      * @return int
      */
-    public function envoyer(string $destinataire, string $sujet, string $message) : int
+    public function envoyer(string $destinataire, string $sujet, string $message): int
     {
         $this->mail->isHTML(true); // Set email format to HTML
-        $this->mail->Subject = utf8_decode($sujet);
-        $this->mail->Body = utf8_decode($message);
+        $this->mail->Subject = mb_convert_encoding($sujet, 'ISO-8859-1');
+        $this->mail->Body = mb_convert_encoding($message, 'ISO-8859-1');
         // $this->mail->Body = $message;
-        $this->mail->AltBody = utf8_decode($message);
+        $this->mail->AltBody = mb_convert_encoding($message, 'ISO-8859-1');
         // $this->mail->AltBody = $message;
         $this->mail->addAddress($destinataire);
         try {
@@ -71,13 +74,13 @@ class Mail {
      * @param string $piece
      * @return int
      */
-    public function envoyerAvec(string $destinataire, string $sujet, string $message, string $piece) : int
+    public function envoyerAvec(string $destinataire, string $sujet, string $message, string $piece): int
     {
         $this->mail->isHTML(true); // Set email format to HTML
-        $this->mail->Subject = utf8_decode($sujet);
-        $this->mail->Body = utf8_decode($message);
+        $this->mail->Subject = mb_convert_encoding($sujet, 'ISO-8859-1');
+        $this->mail->Body = mb_convert_encoding($message, 'ISO-8859-1');
         // $this->mail->Body = $message;
-        $this->mail->AltBody = utf8_decode($message);
+        $this->mail->AltBody = mb_convert_encoding($message, 'ISO-8859-1');
         // $this->mail->AltBody = $message;
         $this->mail->addAddress($destinataire);
         $this->mail->AddAttachment($piece);

@@ -18,7 +18,7 @@ class Controle
      * @return bool vrai si toutes les clés existent dans le tableau
      */
 
-    static public function existe() : bool
+    static public function existe(): bool
     {
         foreach (func_get_args() as $unChamp) {
             if (!isset($_REQUEST[$unChamp])) {
@@ -34,7 +34,7 @@ class Controle
      * @return string
      */
 
-    static public function supprimerEspace(string $unChamp) : string
+    static public function supprimerEspace(string $unChamp): string
     {
         return preg_replace("#[[:space:]]{2,}#", " ", trim($unChamp));
     }
@@ -47,7 +47,7 @@ class Controle
      * @return boolean vrai si le champ $valeur respecte le format $format
      */
 
-    static public function formatValide(string $valeur, string $format) : bool
+    static public function formatValide(string $valeur, string $format): bool
     {
         $correct = false;
         switch ($format) {
